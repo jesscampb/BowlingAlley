@@ -15,8 +15,8 @@ namespace BowlingAlley.Services
         {
             Console.WriteLine("Welcome to Jessica's Bowling Alley!\n");
             Console.WriteLine("Please select an option:\n");
-            Console.WriteLine("1. Start New Game");
-            Console.WriteLine("2. Register a member");
+            Console.WriteLine("1. Start new game");
+            Console.WriteLine("2. Register as a member");
             Console.WriteLine("3. Exit");
 
             int choice = GetPlayerChoice(3);
@@ -55,7 +55,7 @@ namespace BowlingAlley.Services
                     break;
 
                 case 2:
-                    HandleRegisterMember();
+                    RegisterNewMember();
                     break;
 
                 case 3:
@@ -67,44 +67,32 @@ namespace BowlingAlley.Services
         // Handles player choice to start a new game from main menu
         private void HandleStartGame()
         {
-            Console.WriteLine("Make your choice:\n");
-            Console.WriteLine("1. Pick your name from the member list");
-            Console.WriteLine("2. Play as a guest");
+            Console.WriteLine("You need a membership to start a game of bowling! If your name isn't on the list of " +
+                "existing members, your name will be registered automatically.\n");
+            Console.WriteLine("For your reference, here are the members currently registered at Jessica's Bowling Alley.\n");
 
-            int choice = GetPlayerChoice(2);
+            // Display list of members from PlayerRepo?
 
-            switch (choice)
-            {
-                case 1:
-                    ChooseMemberFromList();
-                    break;
-                case 2:
-                    HandleGuestPlayer();
-                    break;
-            }
-        }
+            Console.Write("Player one, enter your name: ");
+            string playerOne = Console.ReadLine();
 
-        // Start game with member
-        private void ChooseMemberFromList()
-        {
-            Console.WriteLine("Choose a member from the list below by entering the name:\n");
-            // Display list of members
-            // Get member choice
-        }
+            // Check if playerOne is a member
 
-        // Start game with guest player
-        private void HandleGuestPlayer()
-        {
-            Console.Write("Enter your name: ");
-            string name = Console.ReadLine();
+            Console.Write("Player two, enter your name: ");
+            string playerTwo = Console.ReadLine();
+
+            // Check if playerTwo is a member
         }
 
         // Handles player choice to register a new member from main menu
-        private void HandleRegisterMember()
+        private void RegisterNewMember()
         {
-            Console.Write("Enter your name to register as a member and start playing: ");
+            Console.Write("Enter your name to register as a member: ");
             string name = Console.ReadLine();
-            // Register member
+
+            // Check for possible duplicates and register new member
+
+            // Display message to confirm registration
         }
 
         // Exits the game
