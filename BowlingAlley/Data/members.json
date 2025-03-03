@@ -1,10 +1,9 @@
 {
-  "exclude": [
-    "**/bin",
-    "**/bower_components",
-    "**/jspm_packages",
-    "**/node_modules",
-    "**/obj",
-    "**/platforms"
+  "members": [
+    { "Name": "Charlie" },
+    { "Name": "Dee" },
+    { "Name": "Dennis" },
+    { "Name": "Frank" },
+    { "Name": "Mac" }
   ]
 }
