@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace BowlingAlley.Core
 {
-    class Player
+    public class Player
     {
+        public string Name { get; set; }
+
+        public Player(string name)
+        {
+            Name = name;
+        }
     }
 }
