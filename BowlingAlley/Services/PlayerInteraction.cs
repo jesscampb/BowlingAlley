@@ -17,8 +17,8 @@ namespace BowlingAlley.Services
             _playerRepo = playerRepo;
         }
 
+
         // Displays when console application starts
-        // Sets in motion the game choices
         public void WelcomeMessage()
         {
             Console.WriteLine("Welcome to Jessica's Bowling Alley!\n");
@@ -31,6 +31,7 @@ namespace BowlingAlley.Services
 
             HandleMainMenuChoice(choice);
         }
+
 
         // Handles player menu number input
         private int GetPlayerChoice(int maxChoice)
@@ -91,6 +92,8 @@ namespace BowlingAlley.Services
             Player playerTwo = GetOrRegisterPlayer("Player two, enter your name: ");
         }
 
+
+        // Gets player name and registers new member if not found
         private Player GetOrRegisterPlayer(string prompt)
         {
             while (true)
@@ -122,6 +125,7 @@ namespace BowlingAlley.Services
             }
         }
 
+
         // Handles player choice to register a new member from main menu
         private void RegisterNewMember()
         {
@@ -145,6 +149,7 @@ namespace BowlingAlley.Services
             _playerRepo.AddPlayer(new Player(nameInput));
             Console.WriteLine($"Successfully registered '{nameInput}' as a member. Welcome!");
         }
+
 
         // Exits the game
         private void ExitGame()
