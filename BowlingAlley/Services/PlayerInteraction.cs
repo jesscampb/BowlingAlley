@@ -87,55 +87,40 @@ namespace BowlingAlley.Services
                 Console.WriteLine(player.Name);
             }
 
-            // Player one registration
-            Console.Write("Player one, enter your name: ");
-            string playerOne = Console.ReadLine();
-
-            if (string.IsNullOrWhiteSpace(playerOne))
-            {
-                Console.WriteLine("Invalid input. Please enter a valid name.");
-            }
-            else
-            {
-                var playerOneObj = _playerRepo.GetPlayer(playerOne);
-
-                if (playerOneObj == null)
-                {
-                    Console.WriteLine($"'{playerOne}' not found. Registering new member...");
-                    _playerRepo.AddPlayer(new Player(playerOne));
-                    Console.WriteLine($"Player '{playerOne}' registered successfully!");
-                }
-                else
-                {
-                    Console.WriteLine($"Player '{playerOne}' found!");
-                }
-            }
-
-            // Player two registration (redunant code)
-            Console.Write("Player two, enter your name: ");
-            string playerTwo = Console.ReadLine();
-
-            if (string.IsNullOrWhiteSpace(playerTwo))
-            {
-                Console.WriteLine("Invalid input. Please enter a valid name.");
-            }
-            else
-            {
-                var playerTwoObj = _playerRepo.GetPlayer(playerTwo);
-
-                if (playerTwoObj == null)
-                {
-                    Console.WriteLine($"'{playerTwo}' not found. Registering new member...");
-                    _playerRepo.AddPlayer(new Player(playerTwo));
-                    Console.WriteLine($"Player '{playerTwo}' registered successfully!");
-                }
-                else
-                {
-                    Console.WriteLine($"Player '{playerTwo}' found!");
-                }
-            }
+            Player playerOne = GetOrRegisterPlayer("Player one, enter your name: ");
+            Player playerTwo = GetOrRegisterPlayer("Player two, enter your name: ");
         }
 
+        private Player GetOrRegisterPlayer(string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string playerName = Console.ReadLine()?.Trim();
+
+                if (string.IsNullOrWhiteSpace(playerName))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid name.");
+                    continue;
+                }
+
+                var playerObj = _playerRepo.GetPlayer(playerName);
+
+                if (playerObj == null)
+                {
+                    Console.WriteLine($"'{playerName}' not found. Registering new member...");
+                    playerObj = new Player(playerName);
+                    _playerRepo.AddPlayer(new Player(playerName));
+                    Console.WriteLine($"Player '{playerName}' registered successfully!");
+                }
+                else
+                {
+                    Console.WriteLine($"Player '{playerName}' found!");
+                }
+
+                return playerObj;
+            }
+        }
 
         // Handles player choice to register a new member from main menu
         private void RegisterNewMember()
