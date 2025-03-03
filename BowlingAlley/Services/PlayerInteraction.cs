@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BowlingAlley.Core;
+using BowlingAlley.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,12 @@ namespace BowlingAlley.Services
 {
     class PlayerInteraction
     {
+        private readonly IPlayerRepo _playerRepo;
+
+        public PlayerInteraction(IPlayerRepo playerRepo)
+        {
+            _playerRepo = playerRepo;
+        }
 
         // Displays when console application starts
         // Sets in motion the game choices
@@ -41,9 +49,9 @@ namespace BowlingAlley.Services
                     Console.WriteLine($"Invalid input. Please enter a number between 1 and {maxChoice}.");
                 }
             }
-
             return choice;
         }
+
 
         // Handles player main menu choice
         public void HandleMainMenuChoice(int choice)
@@ -64,6 +72,7 @@ namespace BowlingAlley.Services
             }
         }
 
+
         // Handles player choice to start a new game from main menu
         private void HandleStartGame()
         {
@@ -71,28 +80,85 @@ namespace BowlingAlley.Services
                 "existing members, your name will be registered automatically.\n");
             Console.WriteLine("For your reference, here are the members currently registered at Jessica's Bowling Alley.\n");
 
-            // Display list of members from PlayerRepo?
+            List<Player> players = _playerRepo.GetAllPlayers();
 
+            foreach (var player in players)
+            {
+                Console.WriteLine(player.Name);
+            }
+
+            // Player one registration
             Console.Write("Player one, enter your name: ");
             string playerOne = Console.ReadLine();
 
-            // Check if playerOne is a member
+            if (string.IsNullOrWhiteSpace(playerOne))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid name.");
+            }
+            else
+            {
+                var playerOneObj = _playerRepo.GetPlayer(playerOne);
 
+                if (playerOneObj == null)
+                {
+                    Console.WriteLine($"'{playerOne}' not found. Registering new member...");
+                    _playerRepo.AddPlayer(new Player(playerOne));
+                    Console.WriteLine($"Player '{playerOne}' registered successfully!");
+                }
+                else
+                {
+                    Console.WriteLine($"Player '{playerOne}' found!");
+                }
+            }
+
+            // Player two registration (redunant code)
             Console.Write("Player two, enter your name: ");
             string playerTwo = Console.ReadLine();
 
-            // Check if playerTwo is a member
+            if (string.IsNullOrWhiteSpace(playerTwo))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid name.");
+            }
+            else
+            {
+                var playerTwoObj = _playerRepo.GetPlayer(playerTwo);
+
+                if (playerTwoObj == null)
+                {
+                    Console.WriteLine($"'{playerTwo}' not found. Registering new member...");
+                    _playerRepo.AddPlayer(new Player(playerTwo));
+                    Console.WriteLine($"Player '{playerTwo}' registered successfully!");
+                }
+                else
+                {
+                    Console.WriteLine($"Player '{playerTwo}' found!");
+                }
+            }
         }
+
 
         // Handles player choice to register a new member from main menu
         private void RegisterNewMember()
         {
             Console.Write("Enter your name to register as a member: ");
-            string name = Console.ReadLine();
+            string nameInput = Console.ReadLine()?.Trim();
 
-            // Check for possible duplicates and register new member
+            if (string.IsNullOrWhiteSpace(nameInput))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid name.");
+                return;
+            }
 
-            // Display message to confirm registration
+            var playerObj = _playerRepo.GetPlayer(nameInput);
+
+            if (playerObj != null)
+            {
+                Console.WriteLine("Member already exists.");
+                return;
+            }
+
+            _playerRepo.AddPlayer(new Player(nameInput));
+            Console.WriteLine($"Successfully registered '{nameInput}' as a member. Welcome!");
         }
 
         // Exits the game
