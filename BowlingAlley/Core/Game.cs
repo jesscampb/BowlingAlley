@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 
 namespace BowlingAlley.Core
 {
-    class Game
+    public class Game
     {
+        private readonly Player _playerOne;
+        private readonly Player _playerTwo;
+        private readonly IGameMode _gameMode;
+
+        public Game(Player playerOne, Player playerTwo, IGameMode gameMode)
+        {
+            _playerOne = playerOne;
+            _playerTwo = playerTwo;
+            _gameMode = gameMode;
+        }
+
+        public void StartGame()
+        {
+            Console.WriteLine($"Starting bowling game mode: {_gameMode.GetType().Name}");
+            _gameMode.PlayGame(_playerOne, _playerTwo);
+            Console.WriteLine("Game finished! Thank you for playing.");
+        }
     }
 }

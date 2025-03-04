@@ -8,7 +8,7 @@ using BowlingAlley.Core;
 
 namespace BowlingAlley.Data
 {
-    public class PlayerRepo: IPlayerRepo
+    public class PlayerRepo : IPlayerRepo
     {
         private readonly string filePath = "Data/members.json";
         private List<Player> players;
