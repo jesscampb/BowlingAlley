@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BowlingAlley.Core
 {
-    public class NormalGame: IGameMode
+    public class NormalGame : IGameMode
     {
         public void PlayGame(Player playerOne, Player playerTwo)
         {
