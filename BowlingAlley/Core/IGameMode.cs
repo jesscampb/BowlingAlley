@@ -8,6 +8,6 @@ namespace BowlingAlley.Core
 {
     public interface IGameMode
     {
-        void PlayGame();
+        void PlayGame(Player playerOne, Player playerTwo);
     }
 }
