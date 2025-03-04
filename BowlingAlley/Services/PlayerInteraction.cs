@@ -102,10 +102,9 @@ namespace BowlingAlley.Services
             Console.WriteLine("2. Normal Game (3 rounds)");
 
             int choice = GetPlayerChoice(2);
-            // Note: add method to create game in GameFactory class
+
             Game game = GameFactory.CreateGame(playerOne, playerTwo, choice);
 
-            // Note: add method to start game in Game class
             game.StartGame();
         }
 
