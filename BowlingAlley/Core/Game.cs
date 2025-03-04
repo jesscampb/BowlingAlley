@@ -21,7 +21,9 @@ namespace BowlingAlley.Core
 
         public void StartGame()
         {
+            Console.WriteLine($"Starting bowling game mode: {_gameMode.GetType().Name}");
             _gameMode.PlayGame(_playerOne, _playerTwo);
+            Console.WriteLine("Game finished! Thank you for playing.");
         }
     }
 }
