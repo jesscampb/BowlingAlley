@@ -51,7 +51,7 @@ namespace BowlingAlley.Data
 
         public Player? GetPlayer(string name)
         {
-            return players.FirstOrDefault(p => p.Name == name);
+            return players.FirstOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
         public List<Player> GetAllPlayers()
