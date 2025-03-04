@@ -103,7 +103,7 @@ namespace BowlingAlley.Services
 
             int choice = GetPlayerChoice(2);
             // Note: add method to create game in GameFactory class
-            Game game = GameFactory.CreateGame(choice, playerOne, playerTwo);
+            Game game = GameFactory.CreateGame(playerOne, playerTwo, choice);
 
             // Note: add method to start game in Game class
             game.StartGame();
