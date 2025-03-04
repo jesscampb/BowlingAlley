@@ -1,5 +1,6 @@
 ﻿using BowlingAlley.Core;
 using BowlingAlley.Data;
+using BowlingAlley.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,8 +91,23 @@ namespace BowlingAlley.Services
 
             Player playerOne = GetOrRegisterPlayer("Player one, enter your name: ");
             Player playerTwo = GetOrRegisterPlayer("Player two, enter your name: ");
+
+            SelectGameModeAndStart(playerOne, playerTwo);
         }
 
+        private void SelectGameModeAndStart(Player playerOne, Player playerTwo)
+        {
+            Console.WriteLine("Last step! Please select a game mode:");
+            Console.WriteLine("1. Quick Game (1 round)");
+            Console.WriteLine("2. Normal Game (3 rounds)");
+
+            int choice = GetPlayerChoice(2);
+            // Note: add method to create game in GameFactory class
+            Game game = GameFactory.CreateGame(choice, playerOne, playerTwo);
+
+            // Note: add method to start game in Game class
+            game.StartGame();
+        }
 
         // Gets player name and registers new member if not found
         private Player GetOrRegisterPlayer(string prompt)
