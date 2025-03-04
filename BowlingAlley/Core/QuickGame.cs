@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BowlingAlley.Core
 {
-    class QuickGame
+    public class QuickGame: IGameMode
     {
+        public void PlayGame(Player playerOne, Player playerTwo)
+        {
+            Console.WriteLine($"Starting a bowling game in Quick Mode between players {playerOne.Name} and {playerTwo.Name}...");
+        }
     }
 }
