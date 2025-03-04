@@ -18,5 +18,10 @@ namespace BowlingAlley.Core
             _playerTwo = playerTwo;
             _gameMode = gameMode;
         }
+
+        public void StartGame()
+        {
+            _gameMode.PlayGame(_playerOne, _playerTwo);
+        }
     }
 }
