@@ -11,21 +11,31 @@ namespace BowlingAlley.Core
     {
         public void PlayGame(Player playerOne, Player playerTwo)
         {
-            // cw: simtxtgen.playerturnmessage(playerone)
+            Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(playerOne));
             int playerOneScore = ScoreCalculator.CalculateTurnScore();
             playerOne.AddTurnScore(playerOneScore);
-            // cw: simtxtgen.playerturnscoremessage(playerone, playeroneturnscore)
+            Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(playerOne, playerOneScore));
+            Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(playerOne, playerOneScore));
 
-            // cw: simtxtgen.playerturnmessage(playertwo)
+            Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(playerTwo));
             int playerTwoScore = ScoreCalculator.CalculateTurnScore();
             playerTwo.AddTurnScore(playerTwoScore);
-            // cw: simtxtgen.playerturnscoremessage(playertwo, playertwoturnscore)
+            Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(playerTwo, playerTwoScore));
+            Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(playerTwo, playerTwoScore));
 
-            // cw: simtxtgen.finalscoremessage(playerone, playeronescore)
-            // cw: simtxtgen.finalscoremessage(playertwo, playertwoscore)
+            Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerOne, playerOneScore));
+            Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerTwo, playerTwoScore));
 
             Player winner = ScoreCalculator.DetermineWinner(playerOne, playerTwo);
-            // cw: simtxtgen.winnermessage(winner)
+
+            if (winner == null)
+            {
+                Console.WriteLine(SimulationTextGenerator.TieMessage(playerOne.TotalScore));
+            }
+            else
+            {
+                Console.WriteLine(SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
+            }
         }
     }
 }

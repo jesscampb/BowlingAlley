@@ -14,7 +14,7 @@ namespace BowlingAlley.Services
             return $"{player.Name}, it's your turn to play!";
         }
 
-        public static string PlayerTurnPinsMessage(Player player, int pins)
+        public static string PinsDownedMessage(Player player, int pins)
         {
             return pins switch
             {
