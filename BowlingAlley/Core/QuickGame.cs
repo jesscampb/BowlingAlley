@@ -12,9 +12,11 @@ namespace BowlingAlley.Core
             PlayTurn(playerOne);
             PlayTurn(playerTwo);
 
+            Console.WriteLine(SimulationTextGenerator.CalculateFinalScoreMessage());
             Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerOne, playerOne.TotalScore));
             Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerTwo, playerTwo.TotalScore));
 
+            Console.WriteLine(SimulationTextGenerator.DetermineWinnerMessage());
             Player winner = ScoreCalculator.DetermineWinner(playerOne, playerTwo);
 
             Console.WriteLine(winner == null ?

@@ -34,14 +34,24 @@ namespace BowlingAlley.Services
             return $"{player.Name} scored {turnScore} points this turn.";
         }
 
+        public static string CalculateFinalScoreMessage()
+        {
+            return "Calculating final scores...";
+        }
+
         public static string FinalScoreMessage(Player player, int finalScore)
         {
             return $"{player.Name} scored {finalScore} points in total.";
         }
 
+        public static string DetermineWinnerMessage()
+        {
+            return $"Comparing player final scores...";
+        }
+
         public static string WinnerMessage(Player winner, int finalScore)
         {
-            return $"Congratulations {winner.Name}! You won the game with a final score of {finalScore}!";
+            return $"Congratulations {winner.Name}! You won the game with {finalScore} points!";
         }
 
         public static string TieMessage(int finalScore)
