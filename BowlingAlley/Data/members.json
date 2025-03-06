@@ -1,9 +1,7 @@
-{
-  "members": [
-    { "Name": "Charlie" },
-    { "Name": "Dee" },
-    { "Name": "Dennis" },
-    { "Name": "Frank" },
-    { "Name": "Mac" }
-  ]
-}
+[
+  { "Name": "Charlie" },
+  { "Name": "Dee" },
+  { "Name": "Dennis" },
+  { "Name": "Frank" },
+  { "Name": "Mac" }
+]
