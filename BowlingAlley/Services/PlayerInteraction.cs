@@ -1,11 +1,6 @@
 ﻿using BowlingAlley.Core;
 using BowlingAlley.Data;
 using BowlingAlley.Factories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BowlingAlley.Services
 {

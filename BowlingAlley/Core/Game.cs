@@ -1,11 +1,4 @@
-﻿using BowlingAlley.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BowlingAlley.Core
+﻿namespace BowlingAlley.Core
 {
     public class Game
     {

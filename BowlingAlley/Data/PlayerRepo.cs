@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BowlingAlley.Core;
 using Newtonsoft.Json;
-using BowlingAlley.Core;
 
 namespace BowlingAlley.Data
 {
