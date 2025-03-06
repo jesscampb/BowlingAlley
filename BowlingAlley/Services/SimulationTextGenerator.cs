@@ -9,10 +9,16 @@ namespace BowlingAlley.Services
 {
     public static class SimulationTextGenerator
     {
+        public static string GameModeMessage(Player playerOne, Player playerTwo, string gameMode)
+        {
+            return $"A new game in {gameMode} is starting between {playerOne.Name} and {playerTwo.Name}...";
+        }
+
         public static string RoundMessage(int round)
         {
-            return $"Round {round} starting...";
+            return $"Round {round} starts now. Grab your balls!";
         }
+
         public static string PlayerTurnMessage(Player player)
         {
             return $"{player.Name}, it's your turn to play!";
@@ -46,6 +52,11 @@ namespace BowlingAlley.Services
         public static string TieMessage(int finalScore)
         {
             return $"It's a tie! Both players scored {finalScore} points.";
+        }
+
+        public static string GameFinishedMessage()
+        {
+            return "Game finished! Thank you for playing.";
         }
     }
 }

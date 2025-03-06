@@ -11,6 +11,9 @@ namespace BowlingAlley.Core
     {
         public void PlayGame(Player playerOne, Player playerTwo)
         {
+            string gameMode = "Quick Game";
+            Console.WriteLine(SimulationTextGenerator.GameModeMessage(playerOne, playerTwo, gameMode));
+
             PlayTurn(playerOne);
             PlayTurn(playerTwo);
 
@@ -22,6 +25,8 @@ namespace BowlingAlley.Core
             Console.WriteLine(winner == null ?
                 SimulationTextGenerator.TieMessage(playerOne.TotalScore) :
                 SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
+
+            Console.WriteLine(SimulationTextGenerator.GameFinishedMessage());
         }
 
         private void PlayTurn(Player player)

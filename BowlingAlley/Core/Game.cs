@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BowlingAlley.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,9 +22,7 @@ namespace BowlingAlley.Core
 
         public void StartGame()
         {
-            Console.WriteLine($"Starting bowling game mode: {_gameMode.GetType().Name}");
             _gameMode.PlayGame(_playerOne, _playerTwo);
-            Console.WriteLine("Game finished! Thank you for playing.");
         }
     }
 }

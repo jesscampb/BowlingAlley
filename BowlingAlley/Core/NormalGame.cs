@@ -11,9 +11,12 @@ namespace BowlingAlley.Core
     {
         public void PlayGame(Player playerOne, Player playerTwo)
         {
-            int totalTurns = 3;
+            string gameMode = "Normal Game";
+            Console.WriteLine(SimulationTextGenerator.GameModeMessage(playerOne, playerTwo, gameMode));
 
-            for (int i = 1; i <= totalTurns; i++)
+            int totalRounds = 3;
+
+            for (int i = 1; i <= totalRounds; i++)
             {
                 Console.WriteLine(SimulationTextGenerator.RoundMessage(i));
                 PlayTurn(playerOne);
@@ -28,6 +31,8 @@ namespace BowlingAlley.Core
             Console.WriteLine(winner == null ? 
                 SimulationTextGenerator.TieMessage(playerOne.TotalScore) : 
                 SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
+
+            Console.WriteLine(SimulationTextGenerator.GameFinishedMessage());
         }
 
         private void PlayTurn(Player player)
