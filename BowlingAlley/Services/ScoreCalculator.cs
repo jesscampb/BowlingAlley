@@ -9,5 +9,11 @@ namespace BowlingAlley.Services
 {
     public static class ScoreCalculator
     {
+        private static readonly Random _random = new Random();
+
+        public static int CalculateTurnScore()
+        {
+            return _random.Next(0, 11);
+        }
     }
 }
