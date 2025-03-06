@@ -4,23 +4,24 @@ namespace BowlingAlley.Core
 {
     public class NormalGame : IGameMode
     {
+        private readonly SingletonLogger _logger = SingletonLogger.Instance;
         public void PlayGame(Player playerOne, Player playerTwo)
         {
             string gameMode = "Normal Mode";
-            SingletonLogger.Instance.Log($"A game started in {gameMode}.");
+            _logger.Log($"Game started in {gameMode} between {playerOne.Name} and {playerTwo.Name}.");
             Console.WriteLine(SimulationTextGenerator.GameModeMessage(playerOne, playerTwo, gameMode));
 
             int totalRounds = 3;
 
             for (int i = 1; i <= totalRounds; i++)
             {
-                SingletonLogger.Instance.Log($"Round {i} start.");
+                _logger.Log($"Round {i} start.");
                 Console.WriteLine(SimulationTextGenerator.RoundStartMessage(i));
 
                 PlayTurn(playerOne);
                 PlayTurn(playerTwo);
 
-                SingletonLogger.Instance.Log($"Round {i} end.");
+                _logger.Log($"Round {i} end.");
                 Console.WriteLine(SimulationTextGenerator.RoundEndMessage(i));
 
             }
@@ -37,7 +38,9 @@ namespace BowlingAlley.Core
                 SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
 
             Console.WriteLine(SimulationTextGenerator.GameFinishedMessage());
-            SingletonLogger.Instance.Log("Game ended.");
+            _logger.Log("Game ended. Final scores:");
+            _logger.Log($"{playerOne.Name}: {playerOne.TotalScore} points.");
+            _logger.Log($"{playerTwo.Name}: {playerTwo.TotalScore} points.");
         }
 
         private void PlayTurn(Player player)
@@ -47,7 +50,7 @@ namespace BowlingAlley.Core
 
             int turnScore = ScoreCalculator.CalculateTurnScore();
             player.AddTurnScore(turnScore);
-            SingletonLogger.Instance.Log($"Player {player.Name} finished turn with a score of {turnScore} points.");
+            _logger.Log($"Player {player.Name} finished turn with a score of {turnScore} points.");
 
             Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(player, turnScore));
             Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(player, turnScore));
