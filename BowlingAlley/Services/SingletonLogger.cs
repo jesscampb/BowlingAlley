@@ -13,7 +13,7 @@
 
         public void Log(string message)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"[LOG]: {message}");
             Console.ResetColor();
         }
