@@ -13,6 +13,7 @@ namespace BowlingAlley.Data
         public PlayerRepository()
         {
             players = LoadPlayers();
+            Console.WriteLine("Current directory: " + Directory.GetCurrentDirectory());
         }
 
         private List<Player> LoadPlayers()

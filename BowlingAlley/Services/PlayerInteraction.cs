@@ -141,25 +141,30 @@ namespace BowlingAlley.Services
         // Handles player choice to register a new member from main menu
         private void RegisterNewMember()
         {
-            Console.Write("Enter your name to register as a member: ");
-            string nameInput = Console.ReadLine()?.Trim();
-
-            if (string.IsNullOrWhiteSpace(nameInput))
+            while (true)
             {
-                Console.WriteLine("Invalid input. Please enter a valid name.");
-                return;
+                Console.Write("Enter your name to register as a member: ");
+                string nameInput = Console.ReadLine()?.Trim();
+
+                if (string.IsNullOrWhiteSpace(nameInput))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid name.");
+                    continue;
+                }
+
+                var playerObj = _playerRepo.GetPlayer(nameInput);
+
+                if (playerObj != null)
+                {
+                    Console.WriteLine("Member already exists. Please try a different name.");
+                }
+                else
+                {
+                    _playerRepo.AddPlayer(new Player(nameInput));
+                    Console.WriteLine($"Successfully registered '{nameInput}' as a member. Welcome!");
+                    break;
+                }
             }
-
-            var playerObj = _playerRepo.GetPlayer(nameInput);
-
-            if (playerObj != null)
-            {
-                Console.WriteLine("Member already exists.");
-                return;
-            }
-
-            _playerRepo.AddPlayer(new Player(nameInput));
-            Console.WriteLine($"Successfully registered '{nameInput}' as a member. Welcome!");
         }
 
 
