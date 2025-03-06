@@ -1,4 +1,5 @@
 ﻿using BowlingAlley.Core;
+using BowlingAlley.Services;
 using Newtonsoft.Json;
 
 namespace BowlingAlley.Data
@@ -6,6 +7,7 @@ namespace BowlingAlley.Data
     public class PlayerRepo : IPlayerRepo
     {
         private readonly string filePath = "Data/members.json";
+        private readonly SingletonLogger _logger = SingletonLogger.Instance;
         private List<Player> players;
 
         public PlayerRepo()
@@ -15,32 +17,64 @@ namespace BowlingAlley.Data
 
         private List<Player> LoadPlayers()
         {
-            if (!File.Exists(filePath))
+            try
             {
-                File.WriteAllText(filePath, "[]");
+                _logger.Log("Loading players from file...");
+
+                if (!File.Exists(filePath))
+                {
+                    _logger.Log("No player data found. Creating new file.");
+                    File.WriteAllText(filePath, "[]");
+                    return new List<Player>();
+                }
+
+                var json = File.ReadAllText(filePath);
+                players = JsonConvert.DeserializeObject<List<Player>>(json) ?? new List<Player>();
+
+                _logger.Log("Players loaded successfully.");
+                return players;
+            }
+            catch (Exception ex)
+            {
+                _logger.Log($"Error loading players: {ex.Message}");
                 return new List<Player>();
             }
-
-            var json = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<List<Player>>(json) ?? new List<Player>();
         }
 
         private void SavePlayers()
         {
-            var json = JsonConvert.SerializeObject(players, Formatting.Indented);
-            File.WriteAllText(filePath, json);
+            try
+            {
+                var json = JsonConvert.SerializeObject(players, Formatting.Indented);
+                File.WriteAllText(filePath, json);
+
+                _logger.Log("Players saved successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.Log($"Error saving players: {ex.Message}");
+            }
         }
 
         public void AddPlayer(Player player)
         {
-            if (!players.Any(p => p.Name == player.Name))
+            try
             {
-                players.Add(player);
-                SavePlayers();
+                if (!players.Any(p => p.Name == player.Name))
+                {
+                    players.Add(player);
+                    _logger.Log("Player added successfully.");
+
+                    SavePlayers();
+                }
+                else
+                {
+                    _logger.Log("Player already exists.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                throw new InvalidOperationException("Player already exists.");
+                _logger.Log($"Error adding player: {ex.Message}");
             }
         }
 
