@@ -2,7 +2,7 @@
 
 namespace BowlingAlley.Data
 {
-    public interface IPlayerRepo
+    public interface IPlayerRepository
     {
         void AddPlayer(Player player);
         Player? GetPlayer(string name);

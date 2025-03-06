@@ -6,9 +6,9 @@ namespace BowlingAlley.Services
 {
     class PlayerInteraction
     {
-        private readonly IPlayerRepo _playerRepo;
+        private readonly IPlayerRepository _playerRepo;
 
-        public PlayerInteraction(IPlayerRepo playerRepo)
+        public PlayerInteraction(IPlayerRepository playerRepo)
         {
             _playerRepo = playerRepo;
         }

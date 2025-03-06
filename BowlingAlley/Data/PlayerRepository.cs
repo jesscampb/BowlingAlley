@@ -4,13 +4,13 @@ using Newtonsoft.Json;
 
 namespace BowlingAlley.Data
 {
-    public class PlayerRepo : IPlayerRepo
+    public class PlayerRepository : IPlayerRepository
     {
         private readonly string filePath = "Data/members.json";
         private readonly SingletonLogger _logger = SingletonLogger.Instance;
         private List<Player> players;
 
-        public PlayerRepo()
+        public PlayerRepository()
         {
             players = LoadPlayers();
         }
