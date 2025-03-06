@@ -15,22 +15,29 @@ namespace BowlingAlley.Core
 
             for (int i = 1; i <= totalTurns; i++)
             {
-                // cw: simtxtgen.playerturnmessage(playerone)
+                Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(playerOne));
                 int playerOneScore = ScoreCalculator.CalculateTurnScore();
                 playerOne.AddTurnScore(playerOneScore);
-                // cw: simtxtgen.playerturnscoremessage(playerone, playeroneturnscore)
+                Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(playerOne, playerOneScore));
+                Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(playerOne, playerOneScore));
 
-                // cw: simtxtgen.playerturnmessage(playertwo)
+                Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(playerTwo));
                 int playerTwoScore = ScoreCalculator.CalculateTurnScore();
                 playerTwo.AddTurnScore(playerTwoScore);
-                // cw: simtxtgen.playerturnscoremessage(playertwo, playertwoturnscore)
+                Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(playerTwo, playerTwoScore));
+                Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(playerTwo, playerTwoScore));
             }
 
-            // cw: simtxtgen.finalscoremessage(playerone, playeronescore)
-            // cw: simtxtgen.finalscoremessage(playertwo, playertwoscore)
+            int playerOneFinalScore = playerOne.TotalScore;
+            int playerTwoFinalScore = playerTwo.TotalScore;
+
+            Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerOne, playerOneFinalScore));
+            Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerTwo, playerTwoFinalScore));
 
             Player winner = ScoreCalculator.DetermineWinner(playerOne, playerTwo);
-            // cw: simtxtgen.winnermessage(winner)
+            Console.WriteLine(winner == null ? 
+                SimulationTextGenerator.TieMessage(playerOneFinalScore) : 
+                SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
         }
     }
 }
