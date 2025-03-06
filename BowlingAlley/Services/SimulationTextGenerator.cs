@@ -19,6 +19,11 @@ namespace BowlingAlley.Services
             return $"{player.Name}, it's your turn to play!";
         }
 
+        public static string PlayerTurnActionMessage(Player player)
+        {
+            return $"{player.Name} takes a deep breath... it's time to roll!";
+        }
+
         public static string PinsDownedMessage(Player player, int pins)
         {
             return pins switch
@@ -44,9 +49,9 @@ namespace BowlingAlley.Services
             return $"{player.Name} scored {finalScore} points in total.";
         }
 
-        public static string CompareFinalScoresMessage()
+        public static string CompareScoresMessage()
         {
-            return $"Comparing player final scores...";
+            return $"Comparing player scores...";
         }
 
         public static string WinnerMessage(Player winner, int finalScore)

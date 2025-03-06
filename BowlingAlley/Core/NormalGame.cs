@@ -22,7 +22,7 @@ namespace BowlingAlley.Core
             Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerOne, playerOne.TotalScore));
             Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerTwo, playerTwo.TotalScore));
 
-            Console.WriteLine(SimulationTextGenerator.CompareFinalScoresMessage());
+            Console.WriteLine(SimulationTextGenerator.CompareScoresMessage());
             Player winner = ScoreCalculator.DetermineWinner(playerOne, playerTwo);
 
             Console.WriteLine(winner == null ? 
@@ -35,6 +35,7 @@ namespace BowlingAlley.Core
         private void PlayTurn(Player player)
         {
             Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(player));
+            Console.WriteLine(SimulationTextGenerator.PlayerTurnActionMessage(player));
 
             int turnScore = ScoreCalculator.CalculateTurnScore();
             player.AddTurnScore(turnScore);
