@@ -15,5 +15,11 @@ namespace BowlingAlley.Services
         {
             return _random.Next(0, 11);
         }
+
+        public static Player DetermineWinner(Player playerOne, Player playerTwo)
+        {
+            return playerOne.TotalScore > playerTwo.TotalScore ? playerOne :
+                   playerTwo.TotalScore > playerOne.TotalScore ? playerTwo : null;
+        }
     }
 }
