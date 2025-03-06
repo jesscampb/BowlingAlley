@@ -123,7 +123,7 @@ namespace BowlingAlley.Services
                 {
                     Console.WriteLine($"'{playerName}' not found. Registering new member...");
                     playerObj = new Player(playerName);
-                    _playerRepo.AddPlayer(new Player(playerName));
+                    _playerRepo.AddPlayer(playerObj);
                     SingletonLogger.Instance.Log($"New member registered: {playerName}.");
                     Console.WriteLine($"Player '{playerName}' registered successfully!");
                 }
