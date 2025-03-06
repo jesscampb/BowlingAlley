@@ -1,9 +1,4 @@
 ﻿using BowlingAlley.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BowlingAlley.Core
 {
@@ -11,26 +6,42 @@ namespace BowlingAlley.Core
     {
         public void PlayGame(Player playerOne, Player playerTwo)
         {
-            int totalTurns = 3;
+            string gameMode = "Normal Game";
+            Console.WriteLine(SimulationTextGenerator.GameModeMessage(playerOne, playerTwo, gameMode));
 
-            for (int i = 1; i <= totalTurns; i++)
+            int totalRounds = 3;
+
+            for (int i = 1; i <= totalRounds; i++)
             {
-                // cw: simtxtgen.playerturnmessage(playerone)
-                int playerOneScore = ScoreCalculator.CalculateTurnScore();
-                playerOne.AddTurnScore(playerOneScore);
-                // cw: simtxtgen.playerturnscoremessage(playerone, playeroneturnscore)
-
-                // cw: simtxtgen.playerturnmessage(playertwo)
-                int playerTwoScore = ScoreCalculator.CalculateTurnScore();
-                playerTwo.AddTurnScore(playerTwoScore);
-                // cw: simtxtgen.playerturnscoremessage(playertwo, playertwoturnscore)
+                Console.WriteLine(SimulationTextGenerator.RoundMessage(i));
+                PlayTurn(playerOne);
+                PlayTurn(playerTwo);
             }
 
-            // cw: simtxtgen.finalscoremessage(playerone, playeronescore)
-            // cw: simtxtgen.finalscoremessage(playertwo, playertwoscore)
+            Console.WriteLine(SimulationTextGenerator.CalculateFinalScoreMessage());
+            Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerOne, playerOne.TotalScore));
+            Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerTwo, playerTwo.TotalScore));
 
+            Console.WriteLine(SimulationTextGenerator.CompareScoresMessage());
             Player winner = ScoreCalculator.DetermineWinner(playerOne, playerTwo);
-            // cw: simtxtgen.winnermessage(winner)
+
+            Console.WriteLine(winner == null ? 
+                SimulationTextGenerator.TieMessage(playerOne.TotalScore) : 
+                SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
+
+            Console.WriteLine(SimulationTextGenerator.GameFinishedMessage());
+        }
+
+        private void PlayTurn(Player player)
+        {
+            Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(player));
+            Console.WriteLine(SimulationTextGenerator.PlayerTurnActionMessage(player));
+
+            int turnScore = ScoreCalculator.CalculateTurnScore();
+            player.AddTurnScore(turnScore);
+
+            Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(player, turnScore));
+            Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(player, turnScore));
         }
     }
 }
