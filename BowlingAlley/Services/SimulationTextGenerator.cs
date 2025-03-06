@@ -9,9 +9,14 @@ namespace BowlingAlley.Services
             return $"A new game in {gameMode} is starting between {playerOne.Name} and {playerTwo.Name}...";
         }
 
-        public static string RoundMessage(int round)
+        public static string RoundStartMessage(int round)
         {
             return $"Round {round} starts now. Grab your balls!";
+        }
+
+        public static string RoundEndMessage(int round)
+        {
+            return $"Round {round} finished. Time to calculate scores!";
         }
 
         public static string PlayerTurnMessage(Player player)

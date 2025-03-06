@@ -6,7 +6,8 @@ namespace BowlingAlley.Core
     {
         public void PlayGame(Player playerOne, Player playerTwo)
         {
-            string gameMode = "Quick Game";
+            string gameMode = "Quick Mode";
+            SingletonLogger.Instance.Log($"A game started in {gameMode}.");
             Console.WriteLine(SimulationTextGenerator.GameModeMessage(playerOne, playerTwo, gameMode));
 
             PlayTurn(playerOne);
@@ -33,6 +34,7 @@ namespace BowlingAlley.Core
 
             int turnScore = ScoreCalculator.CalculateTurnScore();
             player.AddTurnScore(turnScore);
+            SingletonLogger.Instance.Log($"{player.Name} played turn and scored {turnScore} points.");
 
             Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(player, turnScore));
             Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(player, turnScore));

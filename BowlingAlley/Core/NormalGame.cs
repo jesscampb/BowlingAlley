@@ -6,16 +6,23 @@ namespace BowlingAlley.Core
     {
         public void PlayGame(Player playerOne, Player playerTwo)
         {
-            string gameMode = "Normal Game";
+            string gameMode = "Normal Mode";
+            SingletonLogger.Instance.Log($"A game started in {gameMode}.");
             Console.WriteLine(SimulationTextGenerator.GameModeMessage(playerOne, playerTwo, gameMode));
 
             int totalRounds = 3;
 
             for (int i = 1; i <= totalRounds; i++)
             {
-                Console.WriteLine(SimulationTextGenerator.RoundMessage(i));
+                SingletonLogger.Instance.Log($"Round {i} start.");
+                Console.WriteLine(SimulationTextGenerator.RoundStartMessage(i));
+
                 PlayTurn(playerOne);
                 PlayTurn(playerTwo);
+
+                SingletonLogger.Instance.Log($"Round {i} end.");
+                Console.WriteLine(SimulationTextGenerator.RoundEndMessage(i));
+
             }
 
             Console.WriteLine(SimulationTextGenerator.CalculateFinalScoreMessage());
@@ -39,6 +46,7 @@ namespace BowlingAlley.Core
 
             int turnScore = ScoreCalculator.CalculateTurnScore();
             player.AddTurnScore(turnScore);
+            SingletonLogger.Instance.Log($"Player {player.Name} finished turn with a score of {turnScore} points.");
 
             Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(player, turnScore));
             Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(player, turnScore));
