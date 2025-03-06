@@ -44,7 +44,7 @@ namespace BowlingAlley.Services
             return $"{player.Name} scored {finalScore} points in total.";
         }
 
-        public static string DetermineWinnerMessage()
+        public static string CompareFinalScoresMessage()
         {
             return $"Comparing player final scores...";
         }

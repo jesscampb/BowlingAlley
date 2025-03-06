@@ -16,7 +16,7 @@ namespace BowlingAlley.Core
             Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerOne, playerOne.TotalScore));
             Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerTwo, playerTwo.TotalScore));
 
-            Console.WriteLine(SimulationTextGenerator.DetermineWinnerMessage());
+            Console.WriteLine(SimulationTextGenerator.CompareFinalScoresMessage());
             Player winner = ScoreCalculator.DetermineWinner(playerOne, playerTwo);
 
             Console.WriteLine(winner == null ?
