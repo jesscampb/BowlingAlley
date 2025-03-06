@@ -28,15 +28,13 @@ namespace BowlingAlley.Core
                 Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(playerTwo, playerTwoScore));
             }
 
-            int playerOneFinalScore = playerOne.TotalScore;
-            int playerTwoFinalScore = playerTwo.TotalScore;
-
-            Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerOne, playerOneFinalScore));
-            Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerTwo, playerTwoFinalScore));
+            Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerOne, playerOne.TotalScore));
+            Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerTwo, playerTwo.TotalScore));
 
             Player winner = ScoreCalculator.DetermineWinner(playerOne, playerTwo);
+
             Console.WriteLine(winner == null ? 
-                SimulationTextGenerator.TieMessage(playerOneFinalScore) : 
+                SimulationTextGenerator.TieMessage(playerOne.TotalScore) : 
                 SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
         }
     }

@@ -12,14 +12,18 @@ namespace BowlingAlley.Core
         public void PlayGame(Player playerOne, Player playerTwo)
         {
             Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(playerOne));
+
             int playerOneScore = ScoreCalculator.CalculateTurnScore();
             playerOne.AddTurnScore(playerOneScore);
+
             Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(playerOne, playerOneScore));
             Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(playerOne, playerOneScore));
 
             Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(playerTwo));
+
             int playerTwoScore = ScoreCalculator.CalculateTurnScore();
             playerTwo.AddTurnScore(playerTwoScore);
+
             Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(playerTwo, playerTwoScore));
             Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(playerTwo, playerTwoScore));
 
@@ -28,14 +32,9 @@ namespace BowlingAlley.Core
 
             Player winner = ScoreCalculator.DetermineWinner(playerOne, playerTwo);
 
-            if (winner == null)
-            {
-                Console.WriteLine(SimulationTextGenerator.TieMessage(playerOne.TotalScore));
-            }
-            else
-            {
-                Console.WriteLine(SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
-            }
+            Console.WriteLine(winner == null ?
+                SimulationTextGenerator.TieMessage(playerOne.TotalScore) :
+                SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
         }
     }
 }
