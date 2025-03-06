@@ -4,9 +4,12 @@ namespace BowlingAlley.Core
 {
     public class QuickGame : IGameMode
     {
+        private readonly SingletonLogger _logger = SingletonLogger.Instance;
+
         public void PlayGame(Player playerOne, Player playerTwo)
         {
-            string gameMode = "Quick Game";
+            string gameMode = "Quick Mode";
+            _logger.Log($"Game started in {gameMode} between {playerOne.Name} and {playerTwo.Name}.");
             Console.WriteLine(SimulationTextGenerator.GameModeMessage(playerOne, playerTwo, gameMode));
 
             PlayTurn(playerOne);
@@ -24,6 +27,9 @@ namespace BowlingAlley.Core
                 SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
 
             Console.WriteLine(SimulationTextGenerator.GameFinishedMessage());
+            _logger.Log("Game ended.");
+            _logger.Log($"{playerOne.Name}: {playerOne.TotalScore} points.");
+            _logger.Log($"{playerTwo.Name}: {playerTwo.TotalScore} points.");
         }
 
         private void PlayTurn(Player player)
@@ -33,6 +39,7 @@ namespace BowlingAlley.Core
 
             int turnScore = ScoreCalculator.CalculateTurnScore();
             player.AddTurnScore(turnScore);
+            _logger.Log($"{player.Name} played turn and scored {turnScore} points.");
 
             Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(player, turnScore));
             Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(player, turnScore));

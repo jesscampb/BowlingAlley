@@ -1,4 +1,6 @@
-﻿namespace BowlingAlley.Core
+﻿using BowlingAlley.Services;
+
+namespace BowlingAlley.Core
 {
     public class Game
     {
@@ -15,6 +17,7 @@
 
         public void StartGame()
         {
+            SingletonLogger.Instance.Log("Game started.");
             _gameMode.PlayGame(_playerOne, _playerTwo);
         }
     }
