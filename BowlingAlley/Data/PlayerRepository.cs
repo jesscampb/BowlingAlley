@@ -6,7 +6,7 @@ namespace BowlingAlley.Data
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private readonly string filePath = "Data/members.json";
+        private readonly string filePath = "members.json";
         private readonly SingletonLogger _logger = SingletonLogger.Instance;
         private List<Player> players;
 

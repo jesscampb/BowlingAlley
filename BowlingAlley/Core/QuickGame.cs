@@ -2,6 +2,7 @@
 
 namespace BowlingAlley.Core
 {
+    // This class represents the quick game mode choice
     public class QuickGame : IGameMode
     {
         private readonly SingletonLogger _logger = SingletonLogger.Instance;

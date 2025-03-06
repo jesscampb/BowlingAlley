@@ -2,6 +2,7 @@
 
 namespace BowlingAlley.Factories
 {
+    // Factory Pattern class that creates a game based on the player's choice
     public static class GameFactory
     {
         public static Game CreateGame(Player playerOne, Player playerTwo, int choice)

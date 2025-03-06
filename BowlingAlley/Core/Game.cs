@@ -15,6 +15,7 @@ namespace BowlingAlley.Core
             _gameMode = gameMode;
         }
 
+        // Starts the game between two players based on the selected game mode
         public void StartGame()
         {
             SingletonLogger.Instance.Log("Game started.");

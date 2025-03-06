@@ -2,6 +2,7 @@
 
 namespace BowlingAlley.Core
 {
+    // This class represents the normal game mode choice
     public class NormalGame : IGameMode
     {
         private readonly SingletonLogger _logger = SingletonLogger.Instance;
