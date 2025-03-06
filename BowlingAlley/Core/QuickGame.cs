@@ -25,6 +25,7 @@ namespace BowlingAlley.Core
                 SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
 
             Console.WriteLine(SimulationTextGenerator.GameFinishedMessage());
+            SingletonLogger.Instance.Log("Game ended.");
         }
 
         private void PlayTurn(Player player)
