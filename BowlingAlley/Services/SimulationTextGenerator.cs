@@ -9,6 +9,10 @@ namespace BowlingAlley.Services
 {
     public static class SimulationTextGenerator
     {
+        public static string RoundMessage(int round)
+        {
+            return $"Round {round} starting...";
+        }
         public static string PlayerTurnMessage(Player player)
         {
             return $"{player.Name}, it's your turn to play!";

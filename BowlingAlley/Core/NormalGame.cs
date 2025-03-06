@@ -15,17 +15,9 @@ namespace BowlingAlley.Core
 
             for (int i = 1; i <= totalTurns; i++)
             {
-                Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(playerOne));
-                int playerOneScore = ScoreCalculator.CalculateTurnScore();
-                playerOne.AddTurnScore(playerOneScore);
-                Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(playerOne, playerOneScore));
-                Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(playerOne, playerOneScore));
-
-                Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(playerTwo));
-                int playerTwoScore = ScoreCalculator.CalculateTurnScore();
-                playerTwo.AddTurnScore(playerTwoScore);
-                Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(playerTwo, playerTwoScore));
-                Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(playerTwo, playerTwoScore));
+                Console.WriteLine(SimulationTextGenerator.RoundMessage(i));
+                PlayTurn(playerOne);
+                PlayTurn(playerTwo);
             }
 
             Console.WriteLine(SimulationTextGenerator.FinalScoreMessage(playerOne, playerOne.TotalScore));
@@ -36,6 +28,17 @@ namespace BowlingAlley.Core
             Console.WriteLine(winner == null ? 
                 SimulationTextGenerator.TieMessage(playerOne.TotalScore) : 
                 SimulationTextGenerator.WinnerMessage(winner, winner.TotalScore));
+        }
+
+        private void PlayTurn(Player player)
+        {
+            Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(player));
+
+            int turnScore = ScoreCalculator.CalculateTurnScore();
+            player.AddTurnScore(turnScore);
+
+            Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(player, turnScore));
+            Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(player, turnScore));
         }
     }
 }
