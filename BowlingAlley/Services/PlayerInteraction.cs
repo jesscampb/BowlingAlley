@@ -201,7 +201,7 @@ namespace BowlingAlley.Services
                 else
                 {
                     _playerRepo.AddPlayer(new Player(nameInput));
-                    Console.WriteLine("\nSuccessfully registered '{nameInput}' as a member. Welcome!");
+                    Console.WriteLine($"\nSuccessfully registered '{nameInput}' as a member. Welcome!");
                     break;
                 }
             }
