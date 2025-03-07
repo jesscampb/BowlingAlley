@@ -43,6 +43,8 @@ namespace BowlingAlley.Services
 
             int choice = GetPlayerChoice(3);
 
+            HandlePostGameMenuChoice(choice);
+
         }
 
         // Handles player menu number input
