@@ -6,36 +6,41 @@ namespace BowlingAlley.Services
     {
         public static string GameModeMessage(Player playerOne, Player playerTwo, string gameMode)
         {
-            return $"A new game in {gameMode} is starting between {playerOne.Name} and {playerTwo.Name}...";
+            return $"{Environment.NewLine}Starting a game in {gameMode} between players {playerOne.Name} and {playerTwo.Name}...";
+        }
+
+        public static string GameStartMessage()
+        {
+            return $"{Environment.NewLine}The game is on!";
         }
 
         public static string RoundStartMessage(int round)
         {
-            return $"Round {round} starts now. Grab your balls!";
+            return $"{Environment.NewLine}Round {round} has started. Grab your balls!";
         }
 
         public static string RoundEndMessage(int round)
         {
-            return $"Round {round} finished. Time to calculate scores!";
+            return $"{Environment.NewLine}Round {round} finished!";
         }
 
         public static string PlayerTurnMessage(Player player)
         {
-            return $"{player.Name}, it's your turn to play!";
+            return $"{Environment.NewLine}{player.Name}, it's your turn to play!";
         }
 
         public static string PlayerTurnActionMessage(Player player)
         {
-            return $"{player.Name} takes a deep breath... it's time to roll!";
+            return $"{Environment.NewLine}{player.Name} takes a deep breath... it's time to roll!";
         }
 
         public static string PinsDownedMessage(Player player, int pins)
         {
             return pins switch
             {
-                0 => $"Oops! {player.Name} throws a gutter ball... No pins downed!",
-                10 => $"STRIKE!! {player.Name} knocks down all the pins!",
-                _ => $"{player.Name} knocks down {pins} pins!"
+                0 => $"{Environment.NewLine}Oops! {player.Name} throws a gutter ball... No pins downed!",
+                10 => $"{Environment.NewLine}STRIKE!! {player.Name} knocks down all the pins!",
+                _ => $"{Environment.NewLine}{player.Name} knocks down {pins} pins!"
             };
         }
 
@@ -46,7 +51,7 @@ namespace BowlingAlley.Services
 
         public static string CalculateFinalScoreMessage()
         {
-            return "Calculating final scores...";
+            return $"{Environment.NewLine}Calculating final scores...";
         }
 
         public static string FinalScoreMessage(Player player, int finalScore)
@@ -56,22 +61,22 @@ namespace BowlingAlley.Services
 
         public static string CompareScoresMessage()
         {
-            return $"Comparing player scores...";
+            return $"{Environment.NewLine}Comparing player scores to determine a winner...";
         }
 
         public static string WinnerMessage(Player winner, int finalScore)
         {
-            return $"Congratulations {winner.Name}! You won the game with {finalScore} points!";
+            return $"{Environment.NewLine}Congratulations {winner.Name}! You won the game with a score of {finalScore} points!";
         }
 
         public static string TieMessage(int finalScore)
         {
-            return $"It's a tie! Both players scored {finalScore} points.";
+            return $"{Environment.NewLine} It's a tie! Both players scored {finalScore} points.";
         }
 
         public static string GameFinishedMessage()
         {
-            return "Game finished! Thank you for playing.";
+            return $"{Environment.NewLine}Game finished! Thank you for playing.";
         }
     }
 }

@@ -17,7 +17,7 @@ namespace BowlingAlley.Data
             filePath = @"C:\Users\jessc\Desktop\Objektorienterad Analys och Design\Inlämningsuppgift\BowlingAlley\BowlingAlley\members.json";
 
             players = LoadPlayers();
-            Console.WriteLine("Current directory: " + Directory.GetCurrentDirectory());
+            //Console.WriteLine("Current directory: " + Directory.GetCurrentDirectory());
         }
 
         private List<Player> LoadPlayers()
