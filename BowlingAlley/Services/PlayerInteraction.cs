@@ -6,9 +6,9 @@ namespace BowlingAlley.Services
 {
     class PlayerInteraction
     {
-        private readonly IPlayerRepo _playerRepo;
+        private readonly IPlayerRepository _playerRepo;
 
-        public PlayerInteraction(IPlayerRepo playerRepo)
+        public PlayerInteraction(IPlayerRepository playerRepo)
         {
             _playerRepo = playerRepo;
         }
@@ -17,9 +17,15 @@ namespace BowlingAlley.Services
         // Displays when console application starts
         public void WelcomeMessage()
         {
-            Console.WriteLine("Welcome to Jessica's Bowling Alley!\n");
-            Console.WriteLine("Please select an option:\n");
-            Console.WriteLine("1. Start new game");
+            Console.WriteLine($"{Environment.NewLine}Welcome to Jessica's Bowling Alley!");
+
+            DisplayMainMenu();
+        }
+
+        public void DisplayMainMenu()
+        {
+            Console.WriteLine($"{Environment.NewLine}Please select an option:");
+            Console.WriteLine($"{Environment.NewLine}1. Start new game");
             Console.WriteLine("2. Register as a member");
             Console.WriteLine("3. Exit");
 
@@ -28,6 +34,16 @@ namespace BowlingAlley.Services
             HandleMainMenuChoice(choice);
         }
 
+        public void DisplayPostGameMenu()
+        {
+            Console.WriteLine($"{Environment.NewLine}What would you like to do?");
+            Console.WriteLine($"{Environment.NewLine}1. Start a new game");
+            Console.WriteLine("2. Return to main menu");
+            Console.WriteLine("3. Exit");
+
+            int choice = GetPlayerChoice(3);
+
+        }
 
         // Handles player menu number input
         private int GetPlayerChoice(int maxChoice)
@@ -37,7 +53,7 @@ namespace BowlingAlley.Services
 
             while (!isValidChoice)
             {
-                Console.Write("Enter your choice: ");
+                Console.Write($"{Environment.NewLine}Enter your choice: ");
                 string userInput = Console.ReadLine();
                 isValidChoice = int.TryParse(userInput, out choice) && choice >= 1 && choice <= maxChoice;
 
@@ -69,13 +85,31 @@ namespace BowlingAlley.Services
             }
         }
 
+        public void HandlePostGameMenuChoice(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    HandleStartGame();
+                    break;
+
+                case 2:
+                    DisplayMainMenu();
+                    break;
+
+                case 3:
+                    ExitGame();
+                    break;
+            }
+        }
+
 
         // Handles player choice to start a new game from main menu
         private void HandleStartGame()
         {
-            Console.WriteLine("You need a membership to start a game of bowling! If your name isn't on the list of " +
-                "existing members, your name will be registered automatically.\n");
-            Console.WriteLine("For your reference, here are the members currently registered at Jessica's Bowling Alley.\n");
+            Console.WriteLine($"{Environment.NewLine}You need a membership to start a game of bowling! If your name isn't on the list of " +
+                "existing members, you will be signed up automatically.");
+            Console.WriteLine($"{Environment.NewLine}For your reference, here are the members currently registered at Jessica's Bowling Alley.\n");
 
             List<Player> players = _playerRepo.GetAllPlayers();
 
@@ -84,16 +118,16 @@ namespace BowlingAlley.Services
                 Console.WriteLine(player.Name);
             }
 
-            Player playerOne = GetOrRegisterPlayer("Player one, enter your name: ");
-            Player playerTwo = GetOrRegisterPlayer("Player two, enter your name: ");
+            Player playerOne = GetOrRegisterPlayer($"{Environment.NewLine}Player one, enter your name: ");
+            Player playerTwo = GetOrRegisterPlayer($"{Environment.NewLine}Player two, enter your name: ");
 
             SelectGameModeAndStart(playerOne, playerTwo);
         }
 
         private void SelectGameModeAndStart(Player playerOne, Player playerTwo)
         {
-            Console.WriteLine("Last step! Please select a game mode:");
-            Console.WriteLine("1. Quick Game (1 round)");
+            Console.WriteLine($"{Environment.NewLine}Last step! Please select a game mode:");
+            Console.WriteLine($"{Environment.NewLine}1. Quick Game (1 round)");
             Console.WriteLine("2. Normal Game (3 rounds)");
 
             int choice = GetPlayerChoice(2);
@@ -101,6 +135,8 @@ namespace BowlingAlley.Services
             Game game = GameFactory.CreateGame(playerOne, playerTwo, choice);
 
             game.StartGame();
+
+            DisplayPostGameMenu();
         }
 
         // Gets player name and registers new member if not found
@@ -113,7 +149,7 @@ namespace BowlingAlley.Services
 
                 if (string.IsNullOrWhiteSpace(playerName))
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid name.");
+                    Console.WriteLine($"Invalid input. Please enter a valid name.");
                     continue;
                 }
 
@@ -125,12 +161,14 @@ namespace BowlingAlley.Services
                     playerObj = new Player(playerName);
                     _playerRepo.AddPlayer(playerObj);
                     SingletonLogger.Instance.Log($"New member registered: {playerName}.");
-                    Console.WriteLine($"Player '{playerName}' registered successfully!");
+                    Console.WriteLine($"Member '{playerName}' registered successfully!");
+                    Console.WriteLine($"{Environment.NewLine}Player '{playerName}' joined the game!");
                 }
                 else
                 {
-                    SingletonLogger.Instance.Log($"Player '{playerName}' found.");
-                    Console.WriteLine($"Player '{playerName}' found!");
+                    Console.WriteLine($"'{playerName}' found. Welcome back!");
+                    SingletonLogger.Instance.Log($"Member '{playerName}' signed in.");
+                    Console.WriteLine($"{Environment.NewLine}Player '{playerName}' joined the game!");
                 }
 
                 return playerObj;
@@ -141,32 +179,40 @@ namespace BowlingAlley.Services
         // Handles player choice to register a new member from main menu
         private void RegisterNewMember()
         {
-            Console.Write("Enter your name to register as a member: ");
-            string nameInput = Console.ReadLine()?.Trim();
-
-            if (string.IsNullOrWhiteSpace(nameInput))
+            while (true)
             {
-                Console.WriteLine("Invalid input. Please enter a valid name.");
-                return;
+                Console.Write($"{Environment.NewLine}Enter your name to register: ");
+                string nameInput = Console.ReadLine()?.Trim();
+
+                if (string.IsNullOrWhiteSpace(nameInput))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid name.");
+                    continue;
+                }
+
+                var playerObj = _playerRepo.GetPlayer(nameInput);
+
+                if (playerObj != null)
+                {
+                    Console.WriteLine("Member already exists. Please try a different name.");
+                }
+                else
+                {
+                    _playerRepo.AddPlayer(new Player(nameInput));
+                    Console.WriteLine($"{Environment.NewLine}Successfully registered '{nameInput}' as a member. Welcome!");
+                    break;
+                }
             }
-
-            var playerObj = _playerRepo.GetPlayer(nameInput);
-
-            if (playerObj != null)
-            {
-                Console.WriteLine("Member already exists.");
-                return;
-            }
-
-            _playerRepo.AddPlayer(new Player(nameInput));
-            Console.WriteLine($"Successfully registered '{nameInput}' as a member. Welcome!");
+            Console.WriteLine($"{Environment.NewLine}Press any key to return to the main menu.");
+            Console.ReadKey();
+            DisplayMainMenu();
         }
 
 
         // Exits the game
         private void ExitGame()
         {
-            Console.WriteLine("Thank you for playing at Jessica's Bowling Alley!");
+            Console.WriteLine($"{Environment.NewLine}Thank you for playing at Jessica's Bowling Alley!");
             Environment.Exit(0);
         }
     }

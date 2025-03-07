@@ -4,15 +4,20 @@ using Newtonsoft.Json;
 
 namespace BowlingAlley.Data
 {
-    public class PlayerRepo : IPlayerRepo
+    public class PlayerRepository : IPlayerRepository
     {
-        private readonly string filePath = "Data/members.json";
+        private readonly string filePath;
         private readonly SingletonLogger _logger = SingletonLogger.Instance;
         private List<Player> players;
 
-        public PlayerRepo()
+        public PlayerRepository()
         {
+            //string executableDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            //string rootDirectory = Directory.GetParent(executableDirectory).Parent.Parent.FullName;
+            filePath = @"C:\Users\jessc\Desktop\Objektorienterad Analys och Design\Inlämningsuppgift\BowlingAlley\BowlingAlley\members.json";
+
             players = LoadPlayers();
+            //Console.WriteLine("Current directory: " + Directory.GetCurrentDirectory());
         }
 
         private List<Player> LoadPlayers()

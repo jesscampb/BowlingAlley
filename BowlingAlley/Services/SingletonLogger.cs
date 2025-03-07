@@ -1,5 +1,6 @@
 ﻿namespace BowlingAlley.Services
 {
+    // Singleton class that logs messages to the console
     public sealed class SingletonLogger
     {
         // Static variable that holds the single instance of the class.
