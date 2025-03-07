@@ -47,6 +47,8 @@ namespace BowlingAlley.Core
         private void PlayTurn(Player player)
         {
             Console.WriteLine(SimulationTextGenerator.PlayerTurnMessage(player));
+            ThrowBall(player);
+
             Console.WriteLine(SimulationTextGenerator.PlayerTurnActionMessage(player));
 
             int turnScore = ScoreCalculator.CalculateTurnScore();
@@ -55,6 +57,13 @@ namespace BowlingAlley.Core
 
             Console.WriteLine(SimulationTextGenerator.PinsDownedMessage(player, turnScore));
             Console.WriteLine(SimulationTextGenerator.PlayerTurnScoreMessage(player, turnScore));
+        }
+
+        private void ThrowBall(Player player)
+        {
+            Console.WriteLine("Press any key to throw the ball.");
+            Console.ReadKey();
+            _logger.Log($"{player.Name} threw the ball.");
         }
     }
 }
