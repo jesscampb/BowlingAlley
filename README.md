@@ -1,7 +1,7 @@
 # BowlingAlley
 
 **Docs** innehåll:
-- Use Case-beskrivning (.docx)
+- Use Case-beskrivning (.pdf)
 - Klassdiagram (.png)
 - Workflow-diagram (.png)
 - Wireframe (.png)
