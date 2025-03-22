@@ -6,18 +6,16 @@ namespace BowlingAlley.Data
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private readonly string filePath;
+        private readonly string _filePath;
         private readonly SingletonLogger _logger = SingletonLogger.Instance;
-        private List<Player> players;
+        private List<Player> _players;
 
         public PlayerRepository()
         {
-            //string executableDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            //string rootDirectory = Directory.GetParent(executableDirectory).Parent.Parent.FullName;
-            filePath = @"C:\Users\jessc\Desktop\Objektorienterad Analys och Design\Inlämningsuppgift\BowlingAlley\BowlingAlley\members.json";
+            _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BowlingAlley", "members.json");
+            Directory.CreateDirectory(Path.GetDirectoryName(_filePath));
 
-            players = LoadPlayers();
-            //Console.WriteLine("Current directory: " + Directory.GetCurrentDirectory());
+            _players = LoadPlayers();
         }
 
         private List<Player> LoadPlayers()
@@ -26,18 +24,18 @@ namespace BowlingAlley.Data
             {
                 _logger.Log("Loading players from file...");
 
-                if (!File.Exists(filePath))
+                if (!File.Exists(_filePath))
                 {
                     _logger.Log("No player data found. Creating new file.");
-                    File.WriteAllText(filePath, "[]");
+                    File.WriteAllText(_filePath, "[]");
                     return new List<Player>();
                 }
 
-                var json = File.ReadAllText(filePath);
-                players = JsonConvert.DeserializeObject<List<Player>>(json) ?? new List<Player>();
+                var json = File.ReadAllText(_filePath);
+                _players = JsonConvert.DeserializeObject<List<Player>>(json) ?? new List<Player>();
 
                 _logger.Log("Players loaded successfully.");
-                return players;
+                return _players;
             }
             catch (Exception ex)
             {
@@ -50,8 +48,8 @@ namespace BowlingAlley.Data
         {
             try
             {
-                var json = JsonConvert.SerializeObject(players, Formatting.Indented);
-                File.WriteAllText(filePath, json);
+                var json = JsonConvert.SerializeObject(_players, Formatting.Indented);
+                File.WriteAllText(_filePath, json);
 
                 _logger.Log("Players saved successfully.");
             }
@@ -65,9 +63,9 @@ namespace BowlingAlley.Data
         {
             try
             {
-                if (!players.Any(p => p.Name == player.Name))
+                if (!_players.Any(p => p.Name == player.Name))
                 {
-                    players.Add(player);
+                    _players.Add(player);
                     _logger.Log("Player added successfully.");
 
                     SavePlayers();
@@ -85,12 +83,12 @@ namespace BowlingAlley.Data
 
         public Player? GetPlayer(string name)
         {
-            return players.FirstOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            return _players.FirstOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
         public List<Player> GetAllPlayers()
         {
-            return new List<Player>(players);
+            return new List<Player>(_players);
         }
     }
 }
